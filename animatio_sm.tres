@@ -1,0 +1,33 @@
+[gd_resource type="AnimationNodeStateMachine" load_steps=7 format=2]
+
+[sub_resource type="AnimationNodeAnimation" id=13]
+animation = "idle_r"
+
+[sub_resource type="AnimationNodeAnimation" id=14]
+animation = "idle_l"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id=15]
+blend_point_0/node = SubResource( 13 )
+blend_point_0/pos = 1.0
+blend_point_1/node = SubResource( 14 )
+blend_point_1/pos = -1.0
+
+[sub_resource type="AnimationNodeAnimation" id=11]
+animation = "move_left"
+
+[sub_resource type="AnimationNodeAnimation" id=12]
+animation = "move_right"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id=6]
+blend_point_0/node = SubResource( 11 )
+blend_point_0/pos = 1.0
+blend_point_1/node = SubResource( 12 )
+blend_point_1/pos = -1.0
+
+[resource]
+states/idle/node = SubResource( 15 )
+states/idle/position = Vector2( 109, 49 )
+states/move/node = SubResource( 6 )
+states/move/position = Vector2( 49, 146 )
+start_node = "idle"
+graph_offset = Vector2( -542.683, 0 )
