@@ -1,94 +1,78 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://DinoScript.gd" type="Script" id=1]
-[ext_resource path="res://DinoSprites - tard.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/Dino.tres" type="SpriteFrames" id=2]
 [ext_resource path="res://DinoAudioStream.gd" type="Script" id=3]
-
-[sub_resource type="AtlasTexture" id=1]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=2]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 24, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=3]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 48, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=4]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 72, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=5]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 240, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=6]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 264, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=7]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 288, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=8]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 312, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=9]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 96, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=10]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 120, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=11]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 144, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=12]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 168, 0, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=13]
-flags = 4
-atlas = ExtResource( 2 )
-region = Rect2( 192, 0, 24, 24 )
-
-[sub_resource type="SpriteFrames" id=14]
-animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
-"loop": true,
-"name": "idle",
-"speed": 3.0
-}, {
-"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
-"loop": false,
-"name": "jump",
-"speed": 4.0
-}, {
-"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
-"loop": true,
-"name": "move",
-"speed": 25.0
-} ]
 
 [sub_resource type="RectangleShape2D" id=15]
 extents = Vector2( 6.5, 7.5 )
+
+[sub_resource type="Animation" id=41]
+resource_name = "headbutt"
+length = 0.5
+tracks/0/type = "method"
+tracks/0/path = NodePath("AnimatedSprite")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ "headbutt", false ],
+"method": "play"
+}, {
+"args": [ "idle", false ],
+"method": "play"
+} ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("AudioStreamPlayer2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"values": [  ]
+}
+
+[sub_resource type="Animation" id=40]
+resource_name = "hurt"
+length = 0.4
+tracks/0/type = "method"
+tracks/0/path = NodePath("AnimatedSprite")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ "hurt", false ],
+"method": "play"
+}, {
+"args": [ "idle", false ],
+"method": "play"
+} ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("AudioStreamPlayer2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "play_hurt_sfx"
+} ]
+}
 
 [sub_resource type="Animation" id=39]
 resource_name = "idle"
@@ -116,10 +100,13 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.9 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [ "jump", false ],
+"method": "play"
+}, {
+"args": [ "idle", false ],
 "method": "play"
 } ]
 }
@@ -148,10 +135,13 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [ "move", false ],
+"method": "play"
+}, {
+"args": [ "idle", false ],
 "method": "play"
 } ]
 }
@@ -192,10 +182,13 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [ "move", false ],
+"method": "play"
+}, {
+"args": [ "idle", false ],
 "method": "play"
 } ]
 }
@@ -227,13 +220,14 @@ tracks/2/keys = {
 }
 
 [node name="Dino" type="RigidBody2D"]
+collision_mask = 6
 mode = 2
 can_sleep = false
 script = ExtResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 14 )
-animation = "idle"
+frames = ExtResource( 2 )
+animation = "headbutt"
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2( -0.5, 0.5 )
@@ -244,6 +238,8 @@ script = ExtResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle"
+anims/headbutt = SubResource( 41 )
+anims/hurt = SubResource( 40 )
 anims/idle = SubResource( 39 )
 anims/jump = SubResource( 24 )
 anims/move_left = SubResource( 36 )
