@@ -1,15 +1,16 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://DinoScript.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/Dino.tres" type="SpriteFrames" id=2]
 [ext_resource path="res://DinoAudioStream.gd" type="Script" id=3]
+[ext_resource path="res://HeadbuttBoxScript.gd" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=15]
 extents = Vector2( 6.5, 7.5 )
 
 [sub_resource type="Animation" id=41]
 resource_name = "headbutt"
-length = 0.5
+length = 0.4
 tracks/0/type = "method"
 tracks/0/path = NodePath("AnimatedSprite")
 tracks/0/interp = 1
@@ -17,7 +18,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
+"times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [ "headbutt", false ],
@@ -37,6 +38,18 @@ tracks/1/keys = {
 "times": PoolRealArray(  ),
 "transitions": PoolRealArray(  ),
 "values": [  ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("HeadbuttBox:active")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=40]
@@ -171,6 +184,18 @@ tracks/2/keys = {
 "method": "play_run_sfx"
 } ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("HeadbuttBox:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -1, 1 ) ]
+}
 
 [sub_resource type="Animation" id=22]
 resource_name = "move_right"
@@ -218,9 +243,24 @@ tracks/2/keys = {
 "method": "play_run_sfx"
 } ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("HeadbuttBox:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=42]
+extents = Vector2( 8, 4.5 )
 
 [node name="Dino" type="RigidBody2D"]
-collision_mask = 6
+collision_mask = 14
 mode = 2
 can_sleep = false
 script = ExtResource( 1 )
@@ -244,3 +284,16 @@ anims/idle = SubResource( 39 )
 anims/jump = SubResource( 24 )
 anims/move_left = SubResource( 36 )
 anims/move_right = SubResource( 22 )
+
+[node name="HeadbuttBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource( 4 )
+
+[node name="HitArea" type="CollisionShape2D" parent="HeadbuttBox"]
+position = Vector2( 8, -1 )
+shape = SubResource( 42 )
+
+[connection signal="body_entered" from="HeadbuttBox" to="HeadbuttBox" method="_on_HeadbuttBox_body_entered"]
+[connection signal="body_exited" from="HeadbuttBox" to="HeadbuttBox" method="_on_HeadbuttBox_body_exited"]

@@ -11,17 +11,29 @@ extents = Vector2( 65, 10 )
 
 [node name="Boulder" parent="." instance=ExtResource( 3 )]
 position = Vector2( 21, -66 )
-scale = Vector2( 5, 5 )
+mass = 2.55102
+
+[node name="Boulder2" parent="." instance=ExtResource( 3 )]
+position = Vector2( -60, -26 )
+
+[node name="Boulder3" parent="." instance=ExtResource( 3 )]
+position = Vector2( -54, -132 )
+
+[node name="Boulder4" parent="." instance=ExtResource( 3 )]
+position = Vector2( 80, -2.00002 )
+
+[node name="Boulder5" parent="." instance=ExtResource( 3 )]
+position = Vector2( 23, -175 )
 
 [node name="Dino" parent="." instance=ExtResource( 2 )]
-position = Vector2( 102, -72 )
+position = Vector2( 15, 56 )
 mass = 2.02041
 gravity_scale = 4.0
 
 [node name="Camera2D" type="Camera2D" parent="Dino"]
 position = Vector2( 1, 2 )
 current = true
-zoom = Vector2( 0.4, 0.4 )
+zoom = Vector2( 0.3, 0.3 )
 
 [node name="floor" type="StaticBody2D" parent="."]
 position = Vector2( -239, -253 )

@@ -41,7 +41,7 @@ func _process(_delta):
         
     apply_central_impulse(speed)
 
-    #fall damage
+    #fall damage make that the dino can be hurt only once it hits the floor
     if linear_velocity.y > jump_speed:
         hurt()
     
@@ -50,3 +50,6 @@ func _process(_delta):
 func hurt():
     anim_player.play("hurt")
   
+
+
+
