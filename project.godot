@@ -24,6 +24,7 @@ common/drop_mouse_on_gui_input_disabled=true
 2d_physics/layer_2="interactable_objects"
 2d_physics/layer_3="ground"
 2d_physics/layer_4="hazards"
+2d_physics/layer_5="static_objects"
 
 [physics]
 

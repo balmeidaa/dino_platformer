@@ -14,6 +14,10 @@ func _ready():
 # Add condition to avoid playing run sound when in the air
 
 func play_run_sfx():
+    var parent = get_parent()
+    # to avoid play running sound when jumping
+    if parent.linear_velocity.y != 0.0:
+        return
     reset_settings()
     stream = load(run_sfx)
     play()

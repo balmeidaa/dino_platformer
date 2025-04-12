@@ -7,8 +7,6 @@ export var jump_speed = 500
 # Called when the node enters the scene tree for the first time.
 onready var anim_player = $AnimationPlayer
 
-func _ready():
-    set_meta('name', 'player')
 
 func _process(_delta):
     var speed = Vector2.ZERO
@@ -24,13 +22,11 @@ func _process(_delta):
             
     if Input.is_action_pressed("ui_left"):
             speed.x = - move_speed
-            if anim_player.current_animation != 'jump':
-                anim_player.play("move_left")
+            anim_player.play("move_left")
                 
     if Input.is_action_pressed("ui_right"):
             speed.x = move_speed
-            if anim_player.current_animation != 'jump':
-                anim_player.play("move_right")
+            anim_player.play("move_right")
     
     if Input.is_action_pressed("ui_down"):
             anim_player.play("headbutt")
@@ -42,14 +38,18 @@ func _process(_delta):
     apply_central_impulse(speed)
 
     #fall damage make that the dino can be hurt only once it hits the floor
-    if linear_velocity.y > jump_speed:
+    if linear_velocity.y > jump_speed/2:
+        mode = RigidBody2D.MODE_RIGID
+        
+    elif mode == RigidBody2D.MODE_RIGID and  linear_velocity.y == 0.0:
+        mode = RigidBody2D.MODE_CHARACTER
+        $Tween.interpolate_property(self, "rotation_degrees",rotation_degrees, 0.0, 0.6,  Tween.TRANS_ELASTIC, Tween.EASE_OUT)
+        $Tween.start()
+        # remove this and improve fall damage 
         hurt()
     
-   
     
 func hurt():
     anim_player.play("hurt")
   
-
-
 

@@ -295,5 +295,6 @@ script = ExtResource( 4 )
 position = Vector2( 8, -1 )
 shape = SubResource( 42 )
 
-[connection signal="body_entered" from="HeadbuttBox" to="HeadbuttBox" method="_on_HeadbuttBox_body_entered"]
-[connection signal="body_exited" from="HeadbuttBox" to="HeadbuttBox" method="_on_HeadbuttBox_body_exited"]
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_Dino_body_entered"]
