@@ -262,6 +262,8 @@ extents = Vector2( 8, 4.5 )
 [node name="Dino" type="RigidBody2D"]
 collision_mask = 14
 mode = 2
+contacts_reported = 5
+contact_monitor = true
 can_sleep = false
 script = ExtResource( 1 )
 
