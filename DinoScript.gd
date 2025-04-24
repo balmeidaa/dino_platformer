@@ -12,7 +12,8 @@ var prev_position
 var current_position 
 var is_moving = false
 var is_jump_pad = false
- 
+
+
 func _process(_delta):
     current_position = global_position
     

@@ -1,5 +1,5 @@
 extends  ActionLeaf
 
 func  tick(actor: Node, blackboard: Blackboard) -> int:
-   actor.move()
+   actor.walk()
    return SUCCESS

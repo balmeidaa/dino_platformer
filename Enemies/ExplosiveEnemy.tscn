@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://TreeScripts/BeehaveRoot.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/tile_0022.png" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://TreeScripts/walk.gd" type="Script" id=13]
 [ext_resource path="res://TreeScripts/turn around action.gd" type="Script" id=14]
 [ext_resource path="res://addons/beehave/nodes/composites/sequence.gd" type="Script" id=15]
+[ext_resource path="res://TreeScripts/main.gd" type="Script" id=16]
 
 [sub_resource type="Animation" id=9]
 resource_name = "dead"
@@ -96,7 +97,7 @@ tracks/0/path = NodePath(".:flip_h")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
-tracks/0/enabled = false
+tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
@@ -117,6 +118,18 @@ tracks/1/keys = {
 "method": "play"
 } ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("../FloorDetector:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -12, 5 ) ]
+}
 
 [sub_resource type="Animation" id=6]
 resource_name = "walk_r"
@@ -126,7 +139,7 @@ tracks/0/path = NodePath(".:flip_h")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
-tracks/0/enabled = false
+tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
@@ -146,6 +159,18 @@ tracks/1/keys = {
 "args": [ "default", false ],
 "method": "play"
 } ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../FloorDetector:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 12, 5 ) ]
 }
 
 [sub_resource type="AtlasTexture" id=1]
@@ -177,7 +202,7 @@ animations = [ {
 } ]
 
 [sub_resource type="CircleShape2D" id=7]
-radius = 65.0692
+radius = 24.0832
 
 [sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 10, 9.5 )
@@ -185,10 +210,13 @@ extents = Vector2( 10, 9.5 )
 [node name="ExplosiveEnemy" type="RigidBody2D"]
 collision_layer = 8
 collision_mask = 31
+mode = 2
 script = ExtResource( 6 )
 
 [node name="FloorDetector" parent="." instance=ExtResource( 10 )]
-position = Vector2( -13, 1 )
+position = Vector2( -12, 5 )
+enabled = true
+cast_to = Vector2( 0, 15 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../AnimatedSprite")
@@ -218,32 +246,35 @@ shape = SubResource( 8 )
 [node name="BeehaveRoot" type="Node" parent="."]
 script = ExtResource( 1 )
 
-[node name="engage enemy" type="Node" parent="BeehaveRoot"]
+[node name="main" type="Node" parent="BeehaveRoot"]
+script = ExtResource( 16 )
+
+[node name="engage enemy" type="Node" parent="BeehaveRoot/main"]
 script = ExtResource( 5 )
 
-[node name="is enemy close" type="Node" parent="BeehaveRoot/engage enemy"]
+[node name="is enemy close" type="Node" parent="BeehaveRoot/main/engage enemy"]
 script = ExtResource( 7 )
 
-[node name="explode" type="Node" parent="BeehaveRoot/engage enemy"]
+[node name="explode" type="Node" parent="BeehaveRoot/main/engage enemy"]
 script = ExtResource( 8 )
 
-[node name="walk" type="Node" parent="BeehaveRoot"]
-script = ExtResource( 9 )
-
-[node name="Inverter" type="Node" parent="BeehaveRoot/walk"]
-script = ExtResource( 12 )
-
-[node name="turn around" type="Node" parent="BeehaveRoot/walk/Inverter"]
-script = ExtResource( 11 )
-
-[node name="walk" type="Node" parent="BeehaveRoot/walk"]
-script = ExtResource( 13 )
-
-[node name="turn around" type="Node" parent="BeehaveRoot"]
+[node name="turn around" type="Node" parent="BeehaveRoot/main"]
 script = ExtResource( 15 )
 
-[node name="turn around" type="Node" parent="BeehaveRoot/turn around"]
+[node name="turn around" type="Node" parent="BeehaveRoot/main/turn around"]
 script = ExtResource( 11 )
 
-[node name="turn around action" type="Node" parent="BeehaveRoot/turn around"]
+[node name="turn around action" type="Node" parent="BeehaveRoot/main/turn around"]
 script = ExtResource( 14 )
+
+[node name="walk" type="Node" parent="BeehaveRoot/main"]
+script = ExtResource( 9 )
+
+[node name="Inverter" type="Node" parent="BeehaveRoot/main/walk"]
+script = ExtResource( 12 )
+
+[node name="turn around" type="Node" parent="BeehaveRoot/main/walk/Inverter"]
+script = ExtResource( 11 )
+
+[node name="walk" type="Node" parent="BeehaveRoot/main/walk"]
+script = ExtResource( 13 )

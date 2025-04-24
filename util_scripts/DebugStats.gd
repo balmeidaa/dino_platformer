@@ -1,6 +1,7 @@
 extends MarginContainer
 
 var dynamic_font
+export var font_size = 18
 
 class Property:
     var num_format = "%4.2f"
@@ -45,7 +46,7 @@ var props = []  # An array of the tracked properties.
 func _ready():
     dynamic_font = DynamicFont.new()
     dynamic_font.font_data = load("res://assets/Russo_One.ttf")
-    dynamic_font.size = 22
+    dynamic_font.size = font_size
     dynamic_font.outline_size = 2
     dynamic_font.outline_color = Color( 0, 0, 0, 1 )
     dynamic_font.use_filter = true
