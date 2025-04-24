@@ -11,12 +11,14 @@ var is_touching_floor = false
 var prev_position
 var current_position 
 var is_moving = false
+var is_jump_pad = false
  
 func _process(_delta):
     current_position = global_position
     
     var speed = Vector2.ZERO
-    collision_detection(get_colliding_bodies())
+    var collision_list = get_colliding_bodies()
+    collision_detection(collision_list)
     
     if linear_velocity.x == 0.0 and linear_velocity.y == 0.0:
         #this is to avoid to play the idle animation immediatly
@@ -50,29 +52,33 @@ func _process(_delta):
         is_moving = true
     
     prev_position = current_position
-    # no usar linear_velocity para determinar velocidad/no movimiento, usar coordenadas
+    
     if linear_velocity.y > jump_speed:
         mode = RigidBody2D.MODE_RIGID
 
-    elif mode == RigidBody2D.MODE_RIGID and is_touching_floor and not is_moving: #bug
+    elif mode == RigidBody2D.MODE_RIGID and is_touching_floor and not is_moving:
         mode = RigidBody2D.MODE_CHARACTER
         $Tween.interpolate_property(self, "rotation_degrees",rotation_degrees, 0.0, 0.6,  Tween.TRANS_ELASTIC, Tween.EASE_OUT)
         $Tween.start()
  
 
-    if not is_touching_floor and linear_velocity.length() > 250.0:
+    if collision_list and linear_velocity.length() > 250.0 and not is_jump_pad:  
         hurt()
 
     
 func collision_detection(collision_list):
     if not collision_list:
         is_touching_floor = false
+        is_jump_pad = false
         return
         
     for item in collision_list:
+        
         if item.name == 'floor':
             is_touching_floor = true
-            break
+        elif item.name == 'JumpBase':
+            is_jump_pad = true
+            
     
 
 func hurt():
