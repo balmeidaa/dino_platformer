@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://TreeScripts/BeehaveRoot.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/tile_0022.png" type="Texture" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://TreeScripts/turn around action.gd" type="Script" id=14]
 [ext_resource path="res://addons/beehave/nodes/composites/sequence.gd" type="Script" id=15]
 [ext_resource path="res://TreeScripts/main.gd" type="Script" id=16]
+[ext_resource path="res://objects/ObstacleDetector.tscn" type="PackedScene" id=17]
 
 [sub_resource type="Animation" id=9]
 resource_name = "dead"
@@ -130,6 +131,30 @@ tracks/2/keys = {
 "update": 0,
 "values": [ Vector2( -12, 5 ) ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("../ObstacleDetector:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -10, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../ObstacleDetector:cast_to")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -15, 0 ) ]
+}
 
 [sub_resource type="Animation" id=6]
 resource_name = "walk_r"
@@ -172,6 +197,30 @@ tracks/2/keys = {
 "update": 0,
 "values": [ Vector2( 12, 5 ) ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("../ObstacleDetector:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 10, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../ObstacleDetector:cast_to")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 15, 0 ) ]
+}
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -213,8 +262,12 @@ collision_mask = 31
 mode = 2
 script = ExtResource( 6 )
 
+[node name="ObstacleDetector" parent="." instance=ExtResource( 17 )]
+position = Vector2( 10, 0 )
+cast_to = Vector2( 15, 0 )
+
 [node name="FloorDetector" parent="." instance=ExtResource( 10 )]
-position = Vector2( -12, 5 )
+position = Vector2( 12, 5 )
 enabled = true
 cast_to = Vector2( 0, 15 )
 
@@ -229,6 +282,7 @@ anims/walk_r = SubResource( 6 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 4 )
 playing = true
+flip_h = true
 
 [node name="ExplosionArea" type="Area2D" parent="."]
 visible = false

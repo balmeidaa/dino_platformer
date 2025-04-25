@@ -1,6 +1,9 @@
 extends ConditionLeaf
 
 func  tick(actor: Node, blackboard: Blackboard) -> int:
+    
+    if actor.is_exploding:
+        return RUNNING
    
     var detected_player = false
     var detection_list = actor.get_node("ExplosionArea").get_overlapping_bodies()

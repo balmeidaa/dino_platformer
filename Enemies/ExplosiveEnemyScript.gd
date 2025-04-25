@@ -5,20 +5,18 @@ var is_no_floor = false
 var obstructed_path = false
 
 var walk_left = true 
-var walk_same_dir = true
-export var walk_speed = 25.0
+export var walk_speed = 55.0
 
  
-var t = false
+var is_exploding = false
 #code explosion vfx/sfx etc
 func explode():
 
-    if t:
+    if is_exploding:
         return
         
-    t = true
+    is_exploding = true
     $AnimationPlayer.play("explode")
-    print('bum')
 
 
 func turn_around():
