@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://TreeScripts/BeehaveRoot.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/tile_0022.png" type="Texture" id=2]
@@ -17,9 +17,12 @@
 [ext_resource path="res://addons/beehave/nodes/composites/sequence.gd" type="Script" id=15]
 [ext_resource path="res://TreeScripts/main.gd" type="Script" id=16]
 [ext_resource path="res://objects/ObstacleDetector.tscn" type="PackedScene" id=17]
+[ext_resource path="res://vfx/Explosion.tscn" type="PackedScene" id=18]
+[ext_resource path="res://assets/sfx/enem_walk.wav" type="AudioStream" id=19]
 
 [sub_resource type="Animation" id=9]
 resource_name = "dead"
+length = 2.5
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:flip_v")
 tracks/0/interp = 1
@@ -46,9 +49,36 @@ tracks/1/keys = {
 "method": "play"
 } ]
 }
+tracks/2/type = "method"
+tracks/2/path = NodePath("..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 2.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "queue_free" ],
+"method": "call_deferred"
+} ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 1.1, 2.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
 
 [sub_resource type="Animation" id=10]
 resource_name = "explode"
+length = 1.5
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:flip_v")
 tracks/0/interp = 1
@@ -82,11 +112,37 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 1 ),
+"times": PoolRealArray( 1.5 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [ "dead", -1, 1.0, false ],
 "method": "play"
+} ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.001, 0.002, 0.3, 0.6, 1, 1.1, 1.2, 1.3, 1.4, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1.5, 0.35, 0.35, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0.235294, 0.235294, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0.235294, 0.235294, 1 ), Color( 1, 1, 1, 1 ), Color( 1.5, 0.24, 0.24, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/4/type = "method"
+tracks/4/path = NodePath("../Explosion")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 1.4 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "play_vfx_explosion"
 } ]
 }
 
@@ -155,6 +211,20 @@ tracks/4/keys = {
 "update": 0,
 "values": [ Vector2( -15, 0 ) ]
 }
+tracks/5/type = "method"
+tracks/5/path = NodePath("../Audio")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 0.0 ],
+"method": "play"
+} ]
+}
 
 [sub_resource type="Animation" id=6]
 resource_name = "walk_r"
@@ -221,6 +291,20 @@ tracks/4/keys = {
 "update": 0,
 "values": [ Vector2( 15, 0 ) ]
 }
+tracks/5/type = "method"
+tracks/5/path = NodePath("../Audio")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 0.0 ],
+"method": "play"
+} ]
+}
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -251,7 +335,7 @@ animations = [ {
 } ]
 
 [sub_resource type="CircleShape2D" id=7]
-radius = 24.0832
+radius = 41.0
 
 [sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 10, 9.5 )
@@ -265,6 +349,7 @@ script = ExtResource( 6 )
 [node name="ObstacleDetector" parent="." instance=ExtResource( 17 )]
 position = Vector2( 10, 0 )
 cast_to = Vector2( 15, 0 )
+collision_mask = 28
 
 [node name="FloorDetector" parent="." instance=ExtResource( 10 )]
 position = Vector2( 12, 5 )
@@ -285,7 +370,6 @@ playing = true
 flip_h = true
 
 [node name="ExplosionArea" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 3
 
@@ -332,3 +416,9 @@ script = ExtResource( 11 )
 
 [node name="walk" type="Node" parent="BeehaveRoot/main/walk"]
 script = ExtResource( 13 )
+
+[node name="Explosion" parent="." instance=ExtResource( 18 )]
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 19 )
+pitch_scale = 0.7

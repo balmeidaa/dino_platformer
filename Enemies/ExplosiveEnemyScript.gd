@@ -5,7 +5,7 @@ var is_no_floor = false
 var obstructed_path = false
 
 var walk_left = true 
-export var walk_speed = 55.0
+export var walk_speed = 25.0
 
  
 var is_exploding = false
@@ -38,3 +38,4 @@ func walk():
 
     else:
         apply_central_impulse(Vector2(walk_speed, 0.0))
+
