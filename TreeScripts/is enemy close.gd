@@ -1,6 +1,6 @@
 extends ConditionLeaf
 
-func  tick(actor: Node, blackboard: Blackboard) -> int:
+func  tick(actor: Node, _blackboard: Blackboard) -> int:
     
     if actor.is_exploding:
         return RUNNING

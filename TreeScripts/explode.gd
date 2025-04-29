@@ -1,6 +1,6 @@
 extends  ActionLeaf
 
-func  tick(actor: Node, blackboard: Blackboard) -> int:
+func  tick(actor: Node, _blackboard: Blackboard) -> int:
    
-    actor.explode()
+    actor.explode_sequence()
     return SUCCESS

@@ -145,6 +145,18 @@ tracks/4/keys = {
 "method": "play_vfx_explosion"
 } ]
 }
+tracks/5/type = "value"
+tracks/5/path = NodePath("..:explosion_seq_complete")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 1.5 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=5]
 resource_name = "walk_l"
@@ -347,12 +359,10 @@ mode = 2
 script = ExtResource( 6 )
 
 [node name="ObstacleDetector" parent="." instance=ExtResource( 17 )]
-position = Vector2( 10, 0 )
-cast_to = Vector2( 15, 0 )
 collision_mask = 28
 
 [node name="FloorDetector" parent="." instance=ExtResource( 10 )]
-position = Vector2( 12, 5 )
+position = Vector2( -12, 5 )
 enabled = true
 cast_to = Vector2( 0, 15 )
 
@@ -365,9 +375,9 @@ anims/walk_l = SubResource( 5 )
 anims/walk_r = SubResource( 6 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.8, 0.8 )
 frames = SubResource( 4 )
 playing = true
-flip_h = true
 
 [node name="ExplosionArea" type="Area2D" parent="."]
 collision_layer = 0
