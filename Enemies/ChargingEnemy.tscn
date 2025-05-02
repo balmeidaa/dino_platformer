@@ -6,7 +6,7 @@
 [ext_resource path="res://Enemies/ChargingEnemyScript.gd" type="Script" id=4]
 [ext_resource path="res://TreeScripts/SelectorComposite.gd" type="Script" id=5]
 [ext_resource path="res://TreeScripts/BeehaveRoot.gd" type="Script" id=6]
-[ext_resource path="res://Enemies/EnemyDetectorScript.gd" type="Script" id=7]
+[ext_resource path="res://objects/EnemyDetector.tscn" type="PackedScene" id=7]
 [ext_resource path="res://TreeScripts/EngageEnemySeq.gd" type="Script" id=8]
 [ext_resource path="res://TreeScripts/walk around seq.gd" type="Script" id=9]
 [ext_resource path="res://TreeScripts/turn around seq.gd" type="Script" id=10]
@@ -143,8 +143,9 @@ animations = [ {
 "speed": 10.0
 } ]
 
-[sub_resource type="Animation" id=26]
+[sub_resource type="Animation" id=24]
 resource_name = "attack"
+length = 2.0
 tracks/0/type = "method"
 tracks/0/path = NodePath("AnimatedSprite")
 tracks/0/interp = 1
@@ -152,11 +153,55 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "values": [ {
+"args": [ "idle", false ],
+"method": "play"
+}, {
 "args": [ "attack", false ],
 "method": "play"
+}, {
+"args": [ "idle_recover", false ],
+"method": "play"
+} ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:is_winding_up")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:is_attacking")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "move_with_speed"
 } ]
 }
 
@@ -177,9 +222,9 @@ tracks/0/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=24]
-resource_name = "idle"
-length = 0.5
+[sub_resource type="Animation" id=30]
+resource_name = "idle recover"
+loop = true
 tracks/0/type = "method"
 tracks/0/path = NodePath("AnimatedSprite")
 tracks/0/interp = 1
@@ -187,13 +232,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [ "idle", false ],
-"method": "play"
-}, {
-"args": [ "attack", false ],
 "method": "play"
 } ]
 }
@@ -383,7 +425,12 @@ extents = Vector2( 10, 4.5 )
 script/source = "extends ConditionLeaf
 
 func  tick(actor: Node, _blackboard: Blackboard) -> int:
-    if actor.is_no_floor or actor.obstructed_path:
+    # no floor nor obstacle means char is falling
+    if actor.is_no_floor and not actor.obstructed_path:
+        actor.walk()
+        return FAILURE
+    
+    elif actor.is_no_floor or actor.obstructed_path:
         return SUCCESS
     
     return FAILURE
@@ -394,12 +441,9 @@ collision_layer = 8
 collision_mask = 23
 mode = 2
 script = ExtResource( 4 )
+is_attacking = true
 
-[node name="EnemyDetector" type="RayCast2D" parent="."]
-position = Vector2( 8, 0 )
-enabled = true
-cast_to = Vector2( 120, 0 )
-script = ExtResource( 7 )
+[node name="EnemyDetector" parent="." instance=ExtResource( 7 )]
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 visible = false
@@ -413,9 +457,9 @@ playing = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "walk_r"
-anims/attack = SubResource( 26 )
+anims/attack = SubResource( 24 )
 anims/hurt = SubResource( 27 )
-anims/idle = SubResource( 24 )
+"anims/idle recover" = SubResource( 30 )
 anims/walk_l = SubResource( 28 )
 anims/walk_r = SubResource( 25 )
 
@@ -441,6 +485,15 @@ script = ExtResource( 6 )
 [node name="SelectorComposite" type="Node" parent="BeehaveRoot"]
 script = ExtResource( 5 )
 
+[node name="Engage Enemy" type="Node" parent="BeehaveRoot/SelectorComposite"]
+script = ExtResource( 8 )
+
+[node name="is enemy close" type="Node" parent="BeehaveRoot/SelectorComposite/Engage Enemy"]
+script = ExtResource( 12 )
+
+[node name="attack" type="Node" parent="BeehaveRoot/SelectorComposite/Engage Enemy"]
+script = ExtResource( 11 )
+
 [node name="Turn Around" type="Node" parent="BeehaveRoot/SelectorComposite"]
 script = ExtResource( 10 )
 
@@ -461,12 +514,3 @@ script = ExtResource( 13 )
 
 [node name="walk" type="Node" parent="BeehaveRoot/SelectorComposite/Walk"]
 script = ExtResource( 14 )
-
-[node name="Engage Enemy" type="Node" parent="BeehaveRoot/SelectorComposite"]
-script = ExtResource( 8 )
-
-[node name="is enemy close" type="Node" parent="BeehaveRoot/SelectorComposite/Engage Enemy"]
-script = ExtResource( 12 )
-
-[node name="attack" type="Node" parent="BeehaveRoot/SelectorComposite/Engage Enemy"]
-script = ExtResource( 11 )

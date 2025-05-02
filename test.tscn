@@ -20,6 +20,13 @@ glow_intensity = 6.0
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 6 )
 
+[node name="Debugger" parent="." instance=ExtResource( 5 )]
+margin_left = 169.0
+margin_top = -63.0
+margin_right = 448.0
+margin_bottom = 66.0
+font_size = 11
+
 [node name="ChargingEnemy" parent="." instance=ExtResource( 9 )]
 position = Vector2( -9, 51 )
 
@@ -29,14 +36,8 @@ current = true
 zoom = Vector2( 0.4, 0.4 )
 script = ExtResource( 8 )
 
-[node name="Debugger" parent="." instance=ExtResource( 5 )]
-margin_left = -238.0
-margin_top = -89.0
-margin_right = 41.0
-font_size = 11
-
 [node name="Dino" parent="." instance=ExtResource( 2 )]
-position = Vector2( 221, 57 )
+position = Vector2( 144, 56 )
 mass = 2.02041
 gravity_scale = 4.0
 
@@ -92,7 +93,7 @@ scale = Vector2( 2.04688, 0.304688 )
 texture = ExtResource( 1 )
 
 [node name="JumpPad" parent="." instance=ExtResource( 4 )]
-position = Vector2( 71, 62 )
+position = Vector2( 81, 24 )
 jump_pad_push = 2000.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

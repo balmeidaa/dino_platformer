@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Enemies/EnemyDetectorScript.gd" type="Script" id=1]
+
+[node name="EnemyDetector" type="RayCast2D"]
+position = Vector2( 8, 0 )
+enabled = true
+cast_to = Vector2( 120, 0 )
+script = ExtResource( 1 )
