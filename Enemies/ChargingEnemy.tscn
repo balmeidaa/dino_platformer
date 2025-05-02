@@ -1,0 +1,472 @@
+[gd_scene load_steps=46 format=2]
+
+[ext_resource path="res://objects/FloorDetector.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/sprites/DinoSprites - mort.png" type="Texture" id=2]
+[ext_resource path="res://objects/ObstacleDetector.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Enemies/ChargingEnemyScript.gd" type="Script" id=4]
+[ext_resource path="res://TreeScripts/SelectorComposite.gd" type="Script" id=5]
+[ext_resource path="res://TreeScripts/BeehaveRoot.gd" type="Script" id=6]
+[ext_resource path="res://Enemies/EnemyDetectorScript.gd" type="Script" id=7]
+[ext_resource path="res://TreeScripts/EngageEnemySeq.gd" type="Script" id=8]
+[ext_resource path="res://TreeScripts/walk around seq.gd" type="Script" id=9]
+[ext_resource path="res://TreeScripts/turn around seq.gd" type="Script" id=10]
+[ext_resource path="res://TreeScripts/attack action.gd" type="Script" id=11]
+[ext_resource path="res://TreeScripts/is enemy close  melee cond.gd" type="Script" id=12]
+[ext_resource path="res://TreeScripts/turn around cond.gd" type="Script" id=13]
+[ext_resource path="res://TreeScripts/walk.gd" type="Script" id=14]
+[ext_resource path="res://TreeScripts/Inverter.gd" type="Script" id=15]
+[ext_resource path="res://TreeScripts/turn around action.gd" type="Script" id=16]
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 8, 10 )
+
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 432, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=8]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 456, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=9]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 480, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=10]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 504, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=11]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 528, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=12]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 552, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=13]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 312, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=14]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 336, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=15]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 360, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=16]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 384, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 24, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 48, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 72, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=17]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 96, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=18]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 120, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=19]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 144, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=20]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 168, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=21]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 192, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=22]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 216, 0, 24, 24 )
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
+"loop": true,
+"name": "attack",
+"speed": 12.0
+}, {
+"frames": [ SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
+"loop": true,
+"name": "hurt",
+"speed": 8.0
+}, {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ) ],
+"loop": true,
+"name": "walk",
+"speed": 10.0
+} ]
+
+[sub_resource type="Animation" id=26]
+resource_name = "attack"
+tracks/0/type = "method"
+tracks/0/path = NodePath("AnimatedSprite")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "attack", false ],
+"method": "play"
+} ]
+}
+
+[sub_resource type="Animation" id=27]
+resource_name = "hurt"
+tracks/0/type = "method"
+tracks/0/path = NodePath("AnimatedSprite")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "hurt", false ],
+"method": "play"
+} ]
+}
+
+[sub_resource type="Animation" id=24]
+resource_name = "idle"
+length = 0.5
+tracks/0/type = "method"
+tracks/0/path = NodePath("AnimatedSprite")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ "idle", false ],
+"method": "play"
+}, {
+"args": [ "attack", false ],
+"method": "play"
+} ]
+}
+
+[sub_resource type="Animation" id=28]
+resource_name = "walk_l"
+tracks/0/type = "method"
+tracks/0/path = NodePath("AnimatedSprite")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "walk", false ],
+"method": "play"
+} ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("FloorDetector:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -5, 8 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ObstacleDetector:cast_to")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -15, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("ObstacleDetector:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -5, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("AnimatedSprite:flip_h")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("EnemyDetector:cast_to")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -120, 0 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("EnemyDetector:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -8, 0 ) ]
+}
+
+[sub_resource type="Animation" id=25]
+resource_name = "walk_r"
+tracks/0/type = "method"
+tracks/0/path = NodePath("AnimatedSprite")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "walk", false ],
+"method": "play"
+} ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("FloorDetector:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 5, 8 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ObstacleDetector:cast_to")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 15, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("ObstacleDetector:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 5, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("AnimatedSprite:flip_h")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("EnemyDetector:cast_to")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 120, 0 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("EnemyDetector:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 8, 0 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=23]
+extents = Vector2( 10, 4.5 )
+
+[sub_resource type="GDScript" id=29]
+script/source = "extends ConditionLeaf
+
+func  tick(actor: Node, _blackboard: Blackboard) -> int:
+    if actor.is_no_floor or actor.obstructed_path:
+        return SUCCESS
+    
+    return FAILURE
+"
+
+[node name="ChargingEnemy" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 23
+mode = 2
+script = ExtResource( 4 )
+
+[node name="EnemyDetector" type="RayCast2D" parent="."]
+position = Vector2( 8, 0 )
+enabled = true
+cast_to = Vector2( 120, 0 )
+script = ExtResource( 7 )
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 1, 0 )
+shape = SubResource( 6 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 5 )
+animation = "idle"
+playing = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "walk_r"
+anims/attack = SubResource( 26 )
+anims/hurt = SubResource( 27 )
+anims/idle = SubResource( 24 )
+anims/walk_l = SubResource( 28 )
+anims/walk_r = SubResource( 25 )
+
+[node name="Hurtbox" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 11
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2( 8, -1.5 )
+shape = SubResource( 23 )
+
+[node name="FloorDetector" parent="." instance=ExtResource( 1 )]
+position = Vector2( 5, 8 )
+
+[node name="ObstacleDetector" parent="." instance=ExtResource( 3 )]
+position = Vector2( 5, 0 )
+cast_to = Vector2( 15, 0 )
+
+[node name="BeehaveRoot" type="Node" parent="."]
+script = ExtResource( 6 )
+
+[node name="SelectorComposite" type="Node" parent="BeehaveRoot"]
+script = ExtResource( 5 )
+
+[node name="Turn Around" type="Node" parent="BeehaveRoot/SelectorComposite"]
+script = ExtResource( 10 )
+
+[node name="turn around" type="Node" parent="BeehaveRoot/SelectorComposite/Turn Around"]
+script = SubResource( 29 )
+
+[node name="turn around action" type="Node" parent="BeehaveRoot/SelectorComposite/Turn Around"]
+script = ExtResource( 16 )
+
+[node name="Walk" type="Node" parent="BeehaveRoot/SelectorComposite"]
+script = ExtResource( 9 )
+
+[node name="Inverter" type="Node" parent="BeehaveRoot/SelectorComposite/Walk"]
+script = ExtResource( 15 )
+
+[node name="turn around" type="Node" parent="BeehaveRoot/SelectorComposite/Walk/Inverter"]
+script = ExtResource( 13 )
+
+[node name="walk" type="Node" parent="BeehaveRoot/SelectorComposite/Walk"]
+script = ExtResource( 14 )
+
+[node name="Engage Enemy" type="Node" parent="BeehaveRoot/SelectorComposite"]
+script = ExtResource( 8 )
+
+[node name="is enemy close" type="Node" parent="BeehaveRoot/SelectorComposite/Engage Enemy"]
+script = ExtResource( 12 )
+
+[node name="attack" type="Node" parent="BeehaveRoot/SelectorComposite/Engage Enemy"]
+script = ExtResource( 11 )

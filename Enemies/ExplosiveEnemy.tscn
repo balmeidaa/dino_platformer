@@ -4,18 +4,18 @@
 [ext_resource path="res://assets/sprites/tile_0022.png" type="Texture" id=2]
 [ext_resource path="res://assets/sprites/tile_0021.png" type="Texture" id=3]
 [ext_resource path="res://assets/sprites/tile_0023.png" type="Texture" id=4]
-[ext_resource path="res://TreeScripts/EngageEnemy.gd" type="Script" id=5]
+[ext_resource path="res://TreeScripts/EngageEnemySeq.gd" type="Script" id=5]
 [ext_resource path="res://Enemies/ExplosiveEnemyScript.gd" type="Script" id=6]
 [ext_resource path="res://TreeScripts/is enemy close.gd" type="Script" id=7]
 [ext_resource path="res://TreeScripts/explode.gd" type="Script" id=8]
-[ext_resource path="res://TreeScripts/walk around.gd" type="Script" id=9]
+[ext_resource path="res://TreeScripts/walk around seq.gd" type="Script" id=9]
 [ext_resource path="res://objects/FloorDetector.tscn" type="PackedScene" id=10]
-[ext_resource path="res://TreeScripts/turn around.gd" type="Script" id=11]
+[ext_resource path="res://TreeScripts/turn around cond.gd" type="Script" id=11]
 [ext_resource path="res://TreeScripts/Inverter.gd" type="Script" id=12]
 [ext_resource path="res://TreeScripts/walk.gd" type="Script" id=13]
 [ext_resource path="res://TreeScripts/turn around action.gd" type="Script" id=14]
-[ext_resource path="res://addons/beehave/nodes/composites/sequence.gd" type="Script" id=15]
-[ext_resource path="res://TreeScripts/main.gd" type="Script" id=16]
+[ext_resource path="res://TreeScripts/turn around seq.gd" type="Script" id=15]
+[ext_resource path="res://TreeScripts/SelectorComposite.gd" type="Script" id=16]
 [ext_resource path="res://objects/ObstacleDetector.tscn" type="PackedScene" id=17]
 [ext_resource path="res://vfx/Explosion.tscn" type="PackedScene" id=18]
 [ext_resource path="res://assets/sfx/enem_walk.wav" type="AudioStream" id=19]
@@ -363,7 +363,6 @@ collision_mask = 28
 
 [node name="FloorDetector" parent="." instance=ExtResource( 10 )]
 position = Vector2( -12, 5 )
-enabled = true
 cast_to = Vector2( 0, 15 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

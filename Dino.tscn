@@ -1,9 +1,9 @@
 [gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://DinoScript.gd" type="Script" id=1]
+[ext_resource path="res://PlayerScripts/DinoScript.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/Dino.tres" type="SpriteFrames" id=2]
-[ext_resource path="res://DinoAudioStream.gd" type="Script" id=3]
-[ext_resource path="res://HeadbuttBoxScript.gd" type="Script" id=4]
+[ext_resource path="res://PlayerScripts/DinoAudioStream.gd" type="Script" id=3]
+[ext_resource path="res://PlayerScripts/HeadbuttBoxScript.gd" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=15]
 extents = Vector2( 6.5, 7.5 )
