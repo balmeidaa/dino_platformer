@@ -54,7 +54,7 @@ func _process(_delta):
     
     prev_position = current_position
     
-    if linear_velocity.y > jump_speed/8:
+    if linear_velocity.y > jump_speed/2:
         mode = RigidBody2D.MODE_RIGID
 
     elif mode == RigidBody2D.MODE_RIGID and is_touching_floor and not is_moving:

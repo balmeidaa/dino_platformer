@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Cloud.png-3154c27c77f090defa0830df49cb5c4f.stex"
+path="res://.import/tilemap_packed.png-afb42d7028048aeab118ffef4f48319a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Cloud.png"
-dest_files=[ "res://.import/Cloud.png-3154c27c77f090defa0830df49cb5c4f.stex" ]
+source_file="res://Map/tilemap_packed.png"
+dest_files=[ "res://.import/tilemap_packed.png-afb42d7028048aeab118ffef4f48319a.stex" ]
 
 [params]
 

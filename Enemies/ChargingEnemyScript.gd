@@ -8,7 +8,7 @@ var player_detected = false
 var walk_left = false 
 export var walk_speed = 25.0
 export var max_charge_speed = 600.0
-export var push_force = 20.0
+export var push_force = 250.0
  
 export var is_attacking = false
 export var is_winding_up = false
@@ -29,9 +29,9 @@ func _physics_process(_delta):
                 continue
             var direction_push = global_position - body.global_position
             if direction_push.x < 0.0: #right
-                body.apply_central_impulse(Vector2(push_force, -push_force/4))
+                body.apply_central_impulse(Vector2(push_force, -push_force/2))
             else:
-                body.apply_central_impulse(Vector2(-push_force, -push_force/4))
+                body.apply_central_impulse(Vector2(-push_force, -push_force/2))
             if body.name == 'Dino':
                 body.hurt()
 

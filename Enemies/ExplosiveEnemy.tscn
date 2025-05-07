@@ -319,17 +319,14 @@ tracks/5/keys = {
 }
 
 [sub_resource type="AtlasTexture" id=1]
-flags = 4
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=2]
-flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=3]
-flags = 4
 atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 24, 24 )
 
@@ -379,6 +376,7 @@ frames = SubResource( 4 )
 playing = true
 
 [node name="ExplosionArea" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 3
 
