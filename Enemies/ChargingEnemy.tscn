@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://objects/FloorDetector.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/sprites/DinoSprites - mort.png" type="Texture" id=2]
@@ -16,9 +16,11 @@
 [ext_resource path="res://TreeScripts/walk.gd" type="Script" id=14]
 [ext_resource path="res://TreeScripts/Inverter.gd" type="Script" id=15]
 [ext_resource path="res://TreeScripts/turn around action.gd" type="Script" id=16]
+[ext_resource path="res://assets/sprites/puff.png" type="Texture" id=17]
 
-[sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 8, 10 )
+[sub_resource type="CapsuleShape2D" id=31]
+radius = 9.0
+height = 2.0
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 2 )
@@ -142,7 +144,7 @@ tracks/0/keys = {
 "args": [ "attack", false ],
 "method": "play"
 }, {
-"args": [ "idle_recover", false ],
+"args": [ "idle", false ],
 "method": "play"
 } ]
 }
@@ -183,6 +185,18 @@ tracks/3/keys = {
 "args": [  ],
 "method": "move_with_speed"
 } ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("DustTrail:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 1, 1.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
 }
 
 [sub_resource type="Animation" id=27]
@@ -416,19 +430,21 @@ func  tick(actor: Node, _blackboard: Blackboard) -> int:
     return FAILURE
 "
 
+[sub_resource type="Gradient" id=32]
+offsets = PoolRealArray( 0, 0.467005, 1 )
+colors = PoolColorArray( 0.734375, 0.734375, 0.734375, 1, 1, 1, 1, 1, 1, 1, 1, 0.0666667 )
+
 [node name="ChargingEnemy" type="RigidBody2D"]
 collision_layer = 8
 collision_mask = 23
 mode = 2
 script = ExtResource( 4 )
-is_attacking = true
 
 [node name="EnemyDetector" parent="." instance=ExtResource( 7 )]
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( 1, 0 )
-shape = SubResource( 6 )
+shape = SubResource( 31 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 5 )
@@ -494,3 +510,18 @@ script = ExtResource( 13 )
 
 [node name="walk" type="Node" parent="BeehaveRoot/SelectorComposite/Walk"]
 script = ExtResource( 14 )
+
+[node name="DustTrail" type="CPUParticles2D" parent="."]
+position = Vector2( -5, 8 )
+emitting = false
+amount = 50
+local_coords = false
+draw_order = 1
+texture = ExtResource( 17 )
+emission_shape = 1
+emission_sphere_radius = 1.5
+gravity = Vector2( 0, -1 )
+angular_velocity = 50.0
+angular_velocity_random = 1.0
+scale_amount = 0.1
+color_ramp = SubResource( 32 )

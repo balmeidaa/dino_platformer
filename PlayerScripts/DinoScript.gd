@@ -12,7 +12,7 @@ var prev_position
 var current_position 
 var is_moving = false
 var is_jump_pad = false
-
+var mx_spd = 0.0
 
 func _process(_delta):
     current_position = global_position
@@ -53,8 +53,8 @@ func _process(_delta):
         is_moving = true
     
     prev_position = current_position
-    
-    if linear_velocity.y > jump_speed/2:
+
+    if linear_velocity.y > jump_speed:
         mode = RigidBody2D.MODE_RIGID
 
     elif mode == RigidBody2D.MODE_RIGID and is_touching_floor and not is_moving:
@@ -62,8 +62,10 @@ func _process(_delta):
         $Tween.interpolate_property(self, "rotation_degrees",rotation_degrees, 0.0, 0.6,  Tween.TRANS_ELASTIC, Tween.EASE_OUT)
         $Tween.start()
  
-
-    if collision_list and linear_velocity.length() > 250.0 and not is_jump_pad:  
+    if mx_spd <  linear_velocity.length():
+        mx_spd =  linear_velocity.length()
+    
+    if collision_list and linear_velocity.length() > jump_speed and not is_jump_pad:  
         hurt()
 
     

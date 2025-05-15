@@ -5,8 +5,9 @@
 [ext_resource path="res://PlayerScripts/DinoAudioStream.gd" type="Script" id=3]
 [ext_resource path="res://PlayerScripts/HeadbuttBoxScript.gd" type="Script" id=4]
 
-[sub_resource type="RectangleShape2D" id=15]
-extents = Vector2( 6.5, 7.5 )
+[sub_resource type="CapsuleShape2D" id=43]
+radius = 6.5
+height = 6.0
 
 [sub_resource type="Animation" id=41]
 resource_name = "headbutt"
@@ -273,7 +274,7 @@ animation = "headbutt"
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2( -0.5, 0.5 )
-shape = SubResource( 15 )
+shape = SubResource( 43 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 script = ExtResource( 3 )
@@ -288,6 +289,7 @@ anims/move_left = SubResource( 36 )
 anims/move_right = SubResource( 22 )
 
 [node name="HeadbuttBox" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 10
 monitorable = false
