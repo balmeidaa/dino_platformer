@@ -19,6 +19,7 @@ func _ready():
     is_attacking = false
     is_winding_up = false
 
+    
 
 func _physics_process(_delta):
  
@@ -32,7 +33,7 @@ func _physics_process(_delta):
                 body.apply_central_impulse(Vector2(push_force, -push_force/2))
             else:
                 body.apply_central_impulse(Vector2(-push_force, -push_force/2))
-            if body.name == 'Dino':
+            if body.name in ['Dino', 'ChargingEnemy']:
                 body.hurt()
 
 func turn_around():
@@ -50,6 +51,10 @@ func walk():
 func attack():
     $AnimationPlayer.play("attack")
     
+func hurt():
+    $AnimationPlayer.play("hurt")
+
+
     
 func move_with_speed():
     var speed = max_charge_speed if is_attacking else walk_speed

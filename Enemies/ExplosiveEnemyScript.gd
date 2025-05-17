@@ -32,6 +32,8 @@ func _physics_process(_delta):
     
     explosion_seq_complete = false
     
+func hurt():
+    explode_sequence()
 
 func explode_sequence():
 
