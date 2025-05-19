@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Map/auto_tile.tres" type="TileSet" id=1]
 [ext_resource path="res://Dino.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Main.gd" type="Script" id=6]
 [ext_resource path="res://Enemies/ExplosiveEnemy.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Camera2D.gd" type="Script" id=8]
+[ext_resource path="res://Enemies/ChargingEnemy.tscn" type="PackedScene" id=9]
 
 [sub_resource type="Environment" id=2]
 background_mode = 4
@@ -67,6 +68,9 @@ position = Vector2( -12, 73 )
 
 [node name="Spikes6" parent="." instance=ExtResource( 3 )]
 position = Vector2( 30, 72 )
+
+[node name="ChargingEnemy" parent="." instance=ExtResource( 9 )]
+position = Vector2( 80, 31 )
 
 [node name="ExplosiveEnemy" parent="." instance=ExtResource( 7 )]
 position = Vector2( 80, 31 )

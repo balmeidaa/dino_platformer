@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://objects/FloorDetector.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/sprites/DinoSprites - mort.png" type="Texture" id=2]
@@ -17,6 +17,8 @@
 [ext_resource path="res://TreeScripts/Inverter.gd" type="Script" id=15]
 [ext_resource path="res://TreeScripts/turn around action.gd" type="Script" id=16]
 [ext_resource path="res://assets/sprites/puff.png" type="Texture" id=17]
+[ext_resource path="res://Enemies/HurtAudioScript.gd" type="Script" id=18]
+[ext_resource path="res://assets/sfx/hit_0.wav" type="AudioStream" id=19]
 
 [sub_resource type="CapsuleShape2D" id=31]
 radius = 9.0
@@ -216,6 +218,20 @@ tracks/0/keys = {
 }, {
 "args": [ "idle", false ],
 "method": "play"
+} ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("HurtAudio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "play_hurt_sfx"
 } ]
 }
 
@@ -442,6 +458,7 @@ collision_layer = 8
 collision_mask = 23
 mode = 2
 script = ExtResource( 4 )
+is_winding_up = true
 
 [node name="EnemyDetector" parent="." instance=ExtResource( 7 )]
 
@@ -527,3 +544,9 @@ angular_velocity = 50.0
 angular_velocity_random = 1.0
 scale_amount = 0.1
 color_ramp = SubResource( 32 )
+
+[node name="HurtAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 19 )
+volume_db = -5.0
+pitch_scale = 0.7
+script = ExtResource( 18 )

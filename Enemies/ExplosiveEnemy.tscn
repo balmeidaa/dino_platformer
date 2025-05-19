@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://TreeScripts/BeehaveRoot.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/tile_0022.png" type="Texture" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://objects/ObstacleDetector.tscn" type="PackedScene" id=17]
 [ext_resource path="res://vfx/Explosion.tscn" type="PackedScene" id=18]
 [ext_resource path="res://assets/sfx/enem_walk.wav" type="AudioStream" id=19]
+[ext_resource path="res://assets/sfx/tick.wav" type="AudioStream" id=20]
 
 [sub_resource type="Animation" id=9]
 resource_name = "dead"
@@ -157,6 +158,23 @@ tracks/5/keys = {
 "update": 1,
 "values": [ true ]
 }
+tracks/6/type = "method"
+tracks/6/path = NodePath("../TickAudio")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 1.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ 0.0 ],
+"method": "play"
+}, {
+"args": [  ],
+"method": "stop"
+} ]
+}
 
 [sub_resource type="Animation" id=5]
 resource_name = "walk_l"
@@ -224,7 +242,7 @@ tracks/4/keys = {
 "values": [ Vector2( -15, 0 ) ]
 }
 tracks/5/type = "method"
-tracks/5/path = NodePath("../Audio")
+tracks/5/path = NodePath("../WalkAudio")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -304,7 +322,7 @@ tracks/4/keys = {
 "values": [ Vector2( 15, 0 ) ]
 }
 tracks/5/type = "method"
-tracks/5/path = NodePath("../Audio")
+tracks/5/path = NodePath("../WalkAudio")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -353,14 +371,14 @@ collision_layer = 8
 collision_mask = 31
 mode = 2
 script = ExtResource( 6 )
+explosion_seq_complete = true
 
 [node name="ObstacleDetector" parent="." instance=ExtResource( 17 )]
-position = Vector2( 10, 0 )
-cast_to = Vector2( 15, 0 )
+position = Vector2( -10, 4 )
 collision_mask = 28
 
 [node name="FloorDetector" parent="." instance=ExtResource( 10 )]
-position = Vector2( 12, 5 )
+position = Vector2( -12, 5 )
 cast_to = Vector2( 0, 15 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -375,7 +393,6 @@ anims/walk_r = SubResource( 6 )
 scale = Vector2( 0.8, 0.8 )
 frames = SubResource( 4 )
 playing = true
-flip_h = true
 
 [node name="ExplosionArea" type="Area2D" parent="."]
 collision_layer = 0
@@ -426,6 +443,11 @@ script = ExtResource( 13 )
 
 [node name="Explosion" parent="." instance=ExtResource( 18 )]
 
-[node name="Audio" type="AudioStreamPlayer2D" parent="."]
+[node name="WalkAudio" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 19 )
 pitch_scale = 0.7
+
+[node name="TickAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 20 )
+volume_db = -10.0
+pitch_scale = 1.1
