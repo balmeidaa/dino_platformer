@@ -120,6 +120,10 @@ config/name="Dino"
 run/main_scene="res://test.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+SignalBus="*res://util_scripts/SignalBus.gd"
+
 [editor_plugins]
 
 enabled=PoolStringArray( "res://addons/beehave/plugin.cfg" )

@@ -2,13 +2,13 @@
 
 [ext_resource path="res://Map/auto_tile.tres" type="TileSet" id=1]
 [ext_resource path="res://Dino.tscn" type="PackedScene" id=2]
-[ext_resource path="res://objects/Spikes.tscn" type="PackedScene" id=3]
+[ext_resource path="res://objects/JumpPad.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Map/ParalaxBG.tscn" type="PackedScene" id=4]
 [ext_resource path="res://util_scripts/Debugger.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Main.gd" type="Script" id=6]
-[ext_resource path="res://Enemies/ExplosiveEnemy.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Enemies/ChargingEnemy.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Camera2D.gd" type="Script" id=8]
-[ext_resource path="res://Enemies/ChargingEnemy.tscn" type="PackedScene" id=9]
+[ext_resource path="res://DinoFont.tres" type="DynamicFont" id=9]
 
 [sub_resource type="Environment" id=2]
 background_mode = 4
@@ -19,29 +19,90 @@ glow_intensity = 6.0
 script = ExtResource( 6 )
 
 [node name="Debugger" parent="." instance=ExtResource( 5 )]
-margin_left = -55.0
-margin_top = -62.0
-margin_right = 347.0
-margin_bottom = 66.0
+margin_left = -22.0
+margin_top = -43.0
+margin_right = 380.0
+margin_bottom = 85.0
 font_size = 11
 
 [node name="Dino" parent="." instance=ExtResource( 2 )]
 position = Vector2( 220, 58 )
 mass = 2.02041
 gravity_scale = 4.0
-
-[node name="ParalaxBG" parent="Dino" instance=ExtResource( 4 )]
+continuous_cd = 1
 
 [node name="Camera2D" type="Camera2D" parent="Dino"]
 position = Vector2( 0, 1 )
 current = true
-zoom = Vector2( 0.4, 0.4 )
+zoom = Vector2( 0.35, 0.35 )
 script = ExtResource( 8 )
+zoom_range = Vector2( 0.3, 0.3 )
+
+[node name="ParalaxBG" parent="Dino/Camera2D" instance=ExtResource( 4 )]
+visible = false
+scroll_base_scale = Vector2( 0.2, 0.2 )
+
+[node name="UI" type="Control" parent="Dino/Camera2D"]
+margin_left = -220.0
+margin_top = -59.0
+margin_right = -180.0
+margin_bottom = -19.0
+
+[node name="Labels" type="VSplitContainer" parent="Dino/Camera2D/UI"]
+margin_left = 41.0
+margin_top = -45.0
+margin_right = 399.0
+margin_bottom = 164.0
+split_offset = 1
+collapsed = true
+
+[node name="GameOver" type="Label" parent="Dino/Camera2D/UI/Labels"]
+visible = false
+margin_top = 89.0
+margin_right = 358.0
+margin_bottom = 119.0
+custom_colors/font_color = Color( 0.976471, 0.956863, 0.956863, 1 )
+custom_fonts/font = ExtResource( 9 )
+text = "Game Over"
+align = 1
+valign = 1
+
+[node name="PlayerWin" type="Label" parent="Dino/Camera2D/UI/Labels"]
+visible = false
+margin_top = 110.0
+margin_right = 358.0
+margin_bottom = 140.0
+custom_fonts/font = ExtResource( 9 )
+text = "Win!"
+align = 1
+
+[node name="Menu" type="VSplitContainer" parent="Dino/Camera2D/UI"]
+margin_left = 152.0
+margin_top = -1.0
+margin_right = 287.0
+margin_bottom = 97.0
+grow_horizontal = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Restart" type="Button" parent="Dino/Camera2D/UI/Menu"]
+margin_right = 135.0
+margin_bottom = 36.0
+custom_fonts/font = ExtResource( 9 )
+text = "Restart"
+
+[node name="Credits" type="Button" parent="Dino/Camera2D/UI/Menu"]
+margin_top = 48.0
+margin_right = 135.0
+margin_bottom = 98.0
+custom_fonts/font = ExtResource( 9 )
+text = "Credits"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 2 )
 
 [node name="Floor" type="TileMap" parent="."]
+visible = false
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 18, 18 )
 cell_quadrant_size = 18
@@ -49,28 +110,15 @@ cell_custom_transform = Transform2D( 18, 0, 0, 18, 0, 0 )
 collision_layer = 4
 collision_mask = 11
 format = 1
-tile_data = PoolIntArray( -65526, 0, 1, -65525, 0, 1, -65524, 0, 1, -65523, 0, 1, -65522, 0, 1, -65521, 0, 1, -65520, 0, 1, -65519, 0, 1, -65518, 0, 1, -65517, 0, 1, -65516, 0, 1, -65515, 0, 1, -65514, 0, 1, -65513, 0, 1, -65512, 0, 1, -65511, 0, 1, -65510, 0, 1, -65509, 0, 1, -65508, 0, 1, 65531, 3, 65537, 28, 3, 65537, 131067, 3, 65537, 65564, 3, 65537, 196603, 3, 65537, 131100, 3, 65537, 262139, 3, 65537, 196636, 3, 65537, 327675, 3, 65537, 327676, 0, 1, 327677, 0, 1, 327678, 0, 1, 327679, 0, 1, 262144, 0, 1, 262145, 0, 1, 262146, 0, 1, 262147, 0, 1, 262148, 0, 1, 262149, 0, 1, 262150, 0, 1, 262151, 0, 1, 262152, 0, 1, 262153, 0, 1, 262154, 0, 1, 262155, 0, 1, 262156, 0, 1, 262157, 0, 1, 262158, 0, 1, 262159, 0, 1, 262160, 0, 1, 262161, 0, 1, 262162, 0, 1, 262163, 0, 1, 262164, 0, 1, 262165, 0, 1, 262166, 0, 1, 262167, 0, 1, 262168, 0, 1, 262169, 0, 1, 262170, 0, 1, 262171, 0, 1, 262172, 3, 65537 )
+tile_data = PoolIntArray( -1572854, 0, 1, -1441793, 0, 1, -1507318, 0, 1, -1376257, 0, 1, -1441782, 0, 1, -1310722, 0, 1, -1376246, 0, 1, -1245186, 0, 1, -1310710, 0, 1, -1179650, 0, 1, -1179649, 0, 1, -1245174, 0, 1, -1114113, 0, 1, -1179638, 0, 1, -1048577, 0, 1, -1114102, 0, 1, -983041, 0, 1, -1048566, 0, 1, -917506, 0, 1, -917505, 0, 1, -983030, 0, 1, -851970, 0, 1, -917494, 0, 1, -786434, 0, 1, -786433, 0, 1, -851958, 0, 1, -720897, 0, 1, -786422, 0, 1, -655361, 0, 1, -720886, 0, 1, -589825, 0, 1, -655350, 0, 1, -524289, 0, 1, -589814, 0, 1, -458753, 0, 1, -524278, 0, 1, -393217, 0, 1, -458742, 0, 1, -327681, 0, 1, -393206, 0, 1, -262145, 0, 1, -327670, 0, 1, -196609, 0, 1, -262134, 0, 1, -131073, 0, 1, -196598, 0, 1, -65537, 0, 1, -131062, 0, 1, -1, 0, 1, -65526, 0, 1, -65525, 0, 1, -65524, 0, 1, -65523, 0, 1, -65522, 0, 1, -65521, 0, 1, -65520, 0, 1, -65519, 0, 1, -65518, 0, 1, -65517, 0, 1, -65516, 0, 1, -65515, 0, 1, -65514, 0, 1, -65513, 0, 1, -65512, 0, 1, -65511, 0, 1, -65510, 0, 1, -65509, 0, 1, -65508, 0, 1, 65531, 0, 1, 65535, 0, 1, 10, 0, 1, 28, 3, 65537, 131067, 0, 1, 65546, 0, 1, 65564, 3, 65537, 196603, 0, 1, 131100, 3, 65537, 262139, 0, 1, 196636, 3, 65537, 327675, 0, 1, 327676, 0, 1, 327677, 0, 1, 327678, 0, 1, 327679, 0, 1, 262144, 0, 1, 262145, 0, 1, 262146, 0, 1, 262147, 0, 1, 262148, 0, 1, 262149, 0, 1, 262150, 0, 1, 262151, 0, 1, 262152, 0, 1, 262153, 0, 1, 262154, 0, 1, 262155, 0, 1, 262156, 0, 1, 262157, 0, 1, 262158, 0, 1, 262159, 0, 1, 262160, 0, 1, 262161, 0, 1, 262162, 0, 1, 262163, 0, 1, 262164, 0, 1, 262165, 0, 1, 262166, 0, 1, 262167, 0, 1, 262168, 0, 1, 262169, 0, 1, 262170, 0, 1, 262171, 0, 1, 262172, 3, 65537, 851960, 0, 1, 851961, 0, 1, 851962, 0, 1, 851963, 0, 1, 851964, 0, 1, 851965, 0, 1, 851966, 0, 1, 851967, 0, 1, 786432, 0, 1, 786433, 0, 1, 786434, 0, 1, 786435, 0, 1, 786444, 0, 1, 786445, 0, 1, 786446, 0, 1, 786447, 0, 1, 786448, 0, 1, 786449, 0, 1, 786450, 0, 1, 786451, 0, 1, 786452, 0, 1, 851972, 0, 1, 851973, 0, 1, 851974, 0, 1, 851975, 0, 1, 851976, 0, 1, 851977, 0, 1, 851978, 0, 1, 851979, 0, 1, 851988, 0, 1, 851989, 0, 1, 1376247, 0, 1, 1376248, 0, 1, 1376249, 0, 1, 1376250, 0, 1, 1376251, 0, 1, 1376252, 0, 1, 1376253, 0, 1, 1376254, 0, 1, 1376255, 0, 1, 1310720, 0, 1, 1310721, 0, 1, 1310722, 0, 1, 1310723, 0, 1, 1310724, 0, 1, 1376261, 0, 1, 1376262, 0, 1, 1376263, 0, 1, 1376264, 0, 1, 1376265, 0, 1, 1376266, 0, 1, 1376267, 0, 1, 1376268, 0, 1, 1376269, 0, 1, 1376270, 0, 1, 1376271, 0, 1, 1376272, 0, 1, 1376273, 0, 1, 1376274, 0, 1, 1376275, 0, 1 )
 
-[node name="Spikes" parent="." instance=ExtResource( 3 )]
-position = Vector2( 82, 72 )
+[node name="JumpPad2" parent="." instance=ExtResource( 3 )]
+position = Vector2( -72, 59 )
+rotation = 1.5708
+jump_pad_push = 1000.0
 
-[node name="Spikes2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 55, 72 )
+[node name="JumpPad" parent="." instance=ExtResource( 3 )]
+position = Vector2( 73, 72 )
 
-[node name="Spikes3" parent="." instance=ExtResource( 3 )]
-position = Vector2( 10, 72 )
-
-[node name="Spikes4" parent="." instance=ExtResource( 3 )]
-position = Vector2( -33, 72 )
-
-[node name="Spikes5" parent="." instance=ExtResource( 3 )]
-position = Vector2( -12, 73 )
-
-[node name="Spikes6" parent="." instance=ExtResource( 3 )]
-position = Vector2( 30, 72 )
-
-[node name="ChargingEnemy" parent="." instance=ExtResource( 9 )]
-position = Vector2( 80, 31 )
-
-[node name="ExplosiveEnemy" parent="." instance=ExtResource( 7 )]
-position = Vector2( 80, 31 )
+[node name="ChargingEnemy" parent="." instance=ExtResource( 7 )]
+position = Vector2( 274, 63 )

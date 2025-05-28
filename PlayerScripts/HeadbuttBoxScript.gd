@@ -1,6 +1,6 @@
 extends Area2D
 
-export var force = 1200.0
+export var force = 800.0
 export var active = false
 
 

@@ -10,26 +10,14 @@ z_index = -2
 motion_scale = Vector2( 0.1, 0.1 )
 
 [node name="Clouds" type="TileMap" parent="Sky"]
-position = Vector2( 3, -71 )
+position = Vector2( 54, -146 )
+scale = Vector2( -1, -1 )
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 18, 18 )
 cell_quadrant_size = 18
 cell_custom_transform = Transform2D( 18, 0, 0, 18, 0, 0 )
 format = 1
 tile_data = PoolIntArray( -393231, 536870918, 0, -458741, 1073741829, 0, -327700, 1073741829, 0, -327681, 536870918, 0, -327678, 1073741829, 0, -196622, 5, 0, -196599, 5, 0, -196590, 5, 0, -3, 5, 0 )
-
-[node name="Sky2" type="ParallaxLayer" parent="."]
-z_index = -1
-motion_scale = Vector2( 0.1, 0.1 )
-
-[node name="Clouds" type="TileMap" parent="Sky2"]
-position = Vector2( 56, -106 )
-tile_set = ExtResource( 1 )
-cell_size = Vector2( 18, 18 )
-cell_quadrant_size = 18
-cell_custom_transform = Transform2D( 18, 0, 0, 18, 0, 0 )
-format = 1
-tile_data = PoolIntArray( -393224, 536870918, 0, -458736, 1073741830, 0, -327702, 1610612742, 0, -393209, 536870918, 0, -327678, 1610612741, 0, -327664, 1073741829, 0, -196622, 536870918, 0, -131082, 1610612741, 0, -65544, 1073741830, 0, -17, 1073741830, 0, -3, 1610612741, 0, -65513, 1073741830, 0, 11, 1610612742, 0, 65539, 1073741829, 0, 65541, 1610612742, 0, 196596, 536870917, 0, 196597, 1610612742, 0, 131087, 1610612741, 0, 131089, 536870917, 0 )
 
 [node name="Horizon" type="ParallaxLayer" parent="."]
 z_index = -3

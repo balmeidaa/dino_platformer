@@ -3,6 +3,7 @@ extends RigidBody2D
 
 export var move_speed  = 22
 export var jump_speed = 500
+export var recover_time = 1.0
 
 # Called when the node enters the scene tree for the first time.
 onready var anim_player = $AnimationPlayer
@@ -12,10 +13,13 @@ var prev_position
 var current_position 
 var is_moving = false
 var is_jump_pad = false
-var mx_spd = 0.0
 
+#### debug vars
+var mx_spd = 0.0
+var twn_time = 0.0
+####
 func _process(_delta):
-    current_position = global_position
+    current_position = global_position.ceil()
     
     var speed = Vector2.ZERO
     var collision_list = get_colliding_bodies()
@@ -57,9 +61,9 @@ func _process(_delta):
     if linear_velocity.y > jump_speed:
         mode = RigidBody2D.MODE_RIGID
 
-    elif mode == RigidBody2D.MODE_RIGID and is_touching_floor and not is_moving:
+    if mode == RigidBody2D.MODE_RIGID and is_touching_floor and not is_moving:
         mode = RigidBody2D.MODE_CHARACTER
-        $Tween.interpolate_property(self, "rotation_degrees",rotation_degrees, 0.0, 0.6,  Tween.TRANS_ELASTIC, Tween.EASE_OUT)
+        $Tween.interpolate_property(self, "rotation_degrees",rotation_degrees, 0.0, recover_time,  Tween.TRANS_ELASTIC, Tween.EASE_OUT)
         $Tween.start()
  
     if mx_spd <  linear_velocity.length():
@@ -76,8 +80,8 @@ func collision_detection(collision_list):
         return
         
     for item in collision_list:
-        
-        if item.name == 'floor':
+
+        if item.name == 'Floor':
             is_touching_floor = true
         elif item.name == 'JumpBase':
             is_jump_pad = true
