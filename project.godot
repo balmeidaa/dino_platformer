@@ -116,7 +116,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Dino"
+config/name="Dino Sir"
 run/main_scene="res://test.tscn"
 config/icon="res://icon.png"
 
