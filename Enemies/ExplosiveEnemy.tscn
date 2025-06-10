@@ -21,6 +21,8 @@
 [ext_resource path="res://assets/sfx/enem_walk.wav" type="AudioStream" id=19]
 [ext_resource path="res://assets/sfx/tick.wav" type="AudioStream" id=20]
 
+[sub_resource type="CircleShape2D" id=11]
+
 [sub_resource type="Animation" id=9]
 resource_name = "dead"
 length = 2.5
@@ -364,14 +366,16 @@ animations = [ {
 [sub_resource type="CircleShape2D" id=7]
 radius = 41.0
 
-[sub_resource type="CircleShape2D" id=11]
-
 [node name="ExplosiveEnemy" type="RigidBody2D"]
 collision_layer = 8
 collision_mask = 31
 mode = 2
 script = ExtResource( 6 )
 explosion_seq_complete = true
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 0.5 )
+shape = SubResource( 11 )
 
 [node name="ObstacleDetector" parent="." instance=ExtResource( 17 )]
 position = Vector2( -10, 4 )
@@ -396,14 +400,10 @@ playing = true
 
 [node name="ExplosionArea" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 3
+collision_mask = 11
 
 [node name="Collision" type="CollisionShape2D" parent="ExplosionArea"]
 shape = SubResource( 7 )
-
-[node name="Hitbox" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 0.5 )
-shape = SubResource( 11 )
 
 [node name="BeehaveRoot" type="Node" parent="."]
 script = ExtResource( 1 )

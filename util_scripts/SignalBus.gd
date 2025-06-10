@@ -3,6 +3,7 @@ extends Node
 
 signal game_over
 signal player_wins
+var first_game = true
 
 func player_wins():
     emit_signal("player_wins")
@@ -21,6 +22,4 @@ func show_all(ui_node):
     for node in children_nodes:
         node.show()
 
-func toggle_element(parent_ui, node):
-    pass
-    
+ 
