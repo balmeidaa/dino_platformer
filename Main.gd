@@ -13,7 +13,7 @@ func _ready():
     menu.hide()
     SignalBus.connect("player_wins", self, "player_wins")
     SignalBus.connect("game_over", self, "game_over")
-    debugger.add_property(SignalBus, "first_game", "")
+    debugger.add_property($Dino, "global_position", "")
     if SignalBus.first_game:
         get_tree().paused = true
         menu.show()
