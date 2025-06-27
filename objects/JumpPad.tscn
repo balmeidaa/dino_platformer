@@ -78,8 +78,9 @@ tracks/0/keys = {
 } ]
 }
 
-[sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 10, 3 )
+[sub_resource type="CapsuleShape2D" id=7]
+radius = 5.0
+height = 6.0
 
 [node name="JumpPad" type="Area2D"]
 collision_layer = 16
@@ -88,6 +89,7 @@ monitorable = false
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( 0, -6.25 )
 shape = SubResource( 3 )
 one_way_collision_margin = 15.0
@@ -110,6 +112,7 @@ collision_mask = 11
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpBase"]
 position = Vector2( 0, -3 )
+rotation = 1.5708
 shape = SubResource( 7 )
 
 [connection signal="body_entered" from="." to="." method="_on_SpringPlant_body_entered"]

@@ -24,15 +24,19 @@ func _process(_delta):
     var speed = Vector2.ZERO
     var collision_list = get_colliding_bodies()
     collision_detection(collision_list)
-    
-    if linear_velocity.x == 0.0 and linear_velocity.y == 0.0:
+    mx_spd = linear_velocity
+#    print(mx_spd)
+
+ 
+    if abs(linear_velocity.x) == 0.0 and abs(linear_velocity.y) == 0.0:
         #this is to avoid to play the idle animation immediatly
          if anim_player.is_playing() and not (anim_player.current_animation in ['hurt','headbutt'] ):
             anim_player.play('idle')
-    
-    if Input.is_action_just_pressed("ui_up") and linear_velocity.y == 0.0:
+ 
+    if Input.is_action_just_pressed("ui_up") and is_touching_floor:
             speed.y = - jump_speed
-            anim_player.play('jump')
+            anim_player.play('jump')   
+
             
     if Input.is_action_pressed("ui_left"):
             speed.x = - move_speed
@@ -48,7 +52,8 @@ func _process(_delta):
     #extra gravity
     if linear_velocity.y > move_speed/2:
         speed.y += move_speed
-        
+    
+ 
     apply_central_impulse(speed)
     
     if prev_position == current_position:
@@ -66,8 +71,6 @@ func _process(_delta):
         $Tween.interpolate_property(self, "rotation_degrees",rotation_degrees, 0.0, recover_time,  Tween.TRANS_ELASTIC, Tween.EASE_OUT)
         $Tween.start()
  
-    if mx_spd <  linear_velocity.length():
-        mx_spd =  linear_velocity.length()
     
     if collision_list and linear_velocity.length() > jump_speed and not is_jump_pad:  
         hurt()
